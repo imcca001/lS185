@@ -1,3 +1,6 @@
+// https://pacific-sea-70245.herokuapp.com/ 
+// https://git.heroku.com/pacific-sea-70245.git
+const config = require("./lib/config");
 const express = require("express");
 const morgan = require("morgan");
 const flash = require("express-flash");
@@ -10,8 +13,8 @@ const store = require("connect-loki");
 const catchError = require("./lib/catch-error");
 
 const app = express();
-const host = "localhost";
-const port = 3001;
+const host = config.HOST;
+const port = config.PORT;
 const LokiStore = store(session);
 
 const requiresAuthentication = (req, res, next) => {
@@ -38,7 +41,7 @@ app.use(session({
   name: "launch-school-todos-session-id",
   resave: false,
   saveUninitialized: true,
-  secret: "this is not very secure",
+  secret: config.SECRET,
   store: new LokiStore({}),
 }));
 
